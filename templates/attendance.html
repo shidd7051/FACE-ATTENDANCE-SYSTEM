@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Records</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<style>
+    /* ===== Attendance Page ===== */
+body{
+    background-color: #0d1423;
+}
+.table-box{
+    overflow-x:auto;
+    margin:25px 0;
+    border-radius:16px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.4);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border-radius:16px;
+    overflow:hidden;
+}
+
+/* Table Head */
+thead{
+    background: linear-gradient(90deg, #00f2fe, #4facfe);
+}
+
+thead th{
+    padding:15px;
+    text-align:center;
+    font-size:16px;
+    color:#000;
+}
+
+/* Table Body */
+tbody tr{
+    transition: all 0.3s ease;
+}
+
+tbody tr:nth-child(even){
+    background: rgba(255,255,255,0.05);
+}
+
+tbody tr:hover{
+    background: rgba(0,242,254,0.2);
+    transform: scale(1.01);
+}
+
+tbody td{
+    padding:14px;
+    text-align:center;
+    font-size:15px;
+    color:#fff;
+}
+
+/* No data feel fix */
+tbody td:empty{
+    color:#aaa;
+}
+h2{
+    color: white;
+}
+/* Responsive */
+@media(max-width:600px){
+    thead th, tbody td{
+        font-size:13px;
+        padding:10px;
+    }
+}
+.back-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:14px 34px;
+    border-radius:40px;
+    background: linear-gradient(135deg,#00f2fe,#4facfe);
+    color:#000;
+    text-decoration:none;
+    font-weight:600;
+    font-size:16px;
+    letter-spacing:0.5px;
+    box-shadow:0 8px 25px rgba(79,172,254,0.45);
+    transition: all 0.35s ease;
+}
+
+/* Hover effect */
+.back-btn:hover{
+    transform: translateX(-6px);
+    box-shadow:0 14px 35px rgba(79,172,254,0.7);
+    background: linear-gradient(135deg,#4facfe,#00f2fe);
+}
+
+/* Active click */
+.back-btn:active{
+    transform: scale(0.96);
+}
+
+/* Mobile friendly */
+@media(max-width:600px){
+    .back-btn{
+        padding:12px 26px;
+        font-size:14px;
+    }
+}
+
+</style>
+<div class="container">
+    <h2>📋 Attendance Records</h2>
+
+    <div class="table-box">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Roll</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in data %}
+                <tr>
+                    <td>{{ r[0] }}</td>
+                    <td>{{ r[1] }}</td>
+                    <td>{{ r[2] }}</td>
+                    <td>{{ r[3] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <a href="/" class="back-btn">⬅ Back to Dashboard</a>
+  <form method="POST" action="/reset_attendance"
+      onsubmit="return askPassword();"
+      style="display:inline;">
+    <input type="hidden" name="password" id="adminPass">
+    <button type="submit"
+        style="padding:10px 20px;background:red;color:white;border:none;border-radius:8px;cursor:pointer;">
+        ❌ Reset Attendance
+    </button>
+</form>
+
+
+
+</a>
+
+
+</div>
+<script>
+function askPassword(){
+    let pwd = prompt("Enter Admin Password to delete ALL attendance:");
+    if(pwd === null || pwd === ""){
+        return false;
+    }
+    document.getElementById("adminPass").value = pwd;
+    return true;
+}
+</script>
+</body>
+</html>

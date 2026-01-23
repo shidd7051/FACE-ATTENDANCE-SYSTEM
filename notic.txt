@@ -1,0 +1,30 @@
+1> FACE ATTENDANCE PROJECT – FULL REQUIREMENTS--------
+
+✔ Windows 10 / 11 (64-bit)
+✔ Minimum 8 GB RAM (4 GB pe slow hoga)
+✔ Webcam (Laptop / USB camera)
+✔ Internet (installation ke time)
+✔ Python 3.9.x (64-bit)
+
+
+2>  instal Python Packages.................
+
+pip install flask
+pip install opencv-python
+pip install numpy
+pip install face-recognition
+python -m venv venv
+
+
+
+3> Admin Login Details..............
+
+Username: admin
+Password: 1234
+
+
+
+4> How To Project Run Karne ke Steps....................
+
+# Step 1.  venv\Scripts\activate    
+# Step 2.   python app.py

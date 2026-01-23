@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register Student</title>
+
+    <!-- CSS FILE LINK -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+</head>
+<body>
+<style>
+    /* ===== RESET ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', Tahoma, sans-serif;
+}
+
+/* ===== BODY ===== */
+body{
+    min-height:100vh;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#fff;
+}
+
+/* ===== MAIN CARD ===== */
+.container{
+    width:92%;
+    max-width:420px;
+    background: rgba(255,255,255,0.08);
+    padding:28px;
+    border-radius:22px;
+    box-shadow:0 25px 45px rgba(0,0,0,0.6);
+    backdrop-filter: blur(14px);
+    text-align:center;
+}
+
+/* ===== TITLE ===== */
+.container h2{
+    margin-bottom:22px;
+    font-size:26px;
+    letter-spacing:0.5px;
+}
+
+/* ===== FORM ===== */
+.register-form{
+    margin-top:10px;
+}
+
+/* ===== INPUTS ===== */
+.input-group{
+    text-align:left;
+    margin-bottom:18px;
+}
+
+.input-group label{
+    display:block;
+    margin-bottom:6px;
+    font-size:14px;
+    color:#cdefff;
+}
+
+.input-group input{
+    width:100%;
+    padding:14px;
+    border-radius:14px;
+    border:none;
+    outline:none;
+    font-size:15px;
+    background: rgba(255,255,255,0.18);
+    color:#fff;
+}
+
+.input-group input::placeholder{
+    color:#e0e0e0;
+}
+
+/* ===== CAMERA ===== */
+.camera-box{
+    margin:22px auto;
+    border-radius:18px;
+    overflow:hidden;
+    border:3px solid rgba(255,255,255,0.25);
+    box-shadow:0 15px 30px rgba(0,0,0,0.5);
+}
+
+.camera-box video{
+    width:100%;
+    height:240px;
+    object-fit:cover;
+}
+
+/* ===== BUTTONS ===== */
+.btn-group{
+    display:flex;
+    gap:15px;
+    justify-content:center;
+    margin-top:10px;
+}
+
+.btn{
+    padding:14px 26px;
+    border:none;
+    border-radius:40px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s ease;
+}
+
+/* Capture */
+.capture-btn{
+    background: linear-gradient(90deg,#ffdd00,#ff9f00);
+    color:#000;
+}
+
+/* Submit */
+.submit-btn{
+    background: linear-gradient(90deg,#00f2fe,#4facfe);
+    color:#000;
+}
+
+.btn:hover{
+    transform: translateY(-3px);
+    box-shadow:0 12px 25px rgba(0,0,0,0.5);
+}
+
+/* ===== BACK LINK ===== */
+.back-btn{
+    display:inline-block;
+    margin-top:22px;
+    color:#9be7ff;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.back-btn:hover{
+    text-decoration:underline;
+}
+
+/* ===== CANVAS (HIDDEN) ===== */
+canvas{
+    display:none;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:520px){
+    .btn-group{
+        flex-direction:column;
+    }
+}
+
+</style>
+<div class="container">
+
+    <h2>Student Registration</h2>
+
+    <form class="register-form" method="POST" action="/save_student">
+
+        <div class="input-group">
+            <label>Roll No</label>
+            <input type="text" name="roll" placeholder="Enter Roll Number" required>
+        </div>
+
+        <div class="input-group">
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Enter Student Name" required>
+        </div>
+
+        <input type="hidden" name="image_data" id="image_data">
+
+        <div class="camera-box">
+            <video id="video" autoplay></video>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" class="btn capture-btn" onclick="capture()">📸 Capture Photo</button>
+            <button type="submit" class="btn submit-btn">✅ Register Student</button>
+        </div>
+
+    </form>
+
+    <a href="/" class="back-btn">⬅ Back to Dashboard</a>
+
+</div>
+
+<canvas id="canvas" width="320" height="240"></canvas>
+
+<script>
+navigator.mediaDevices.getUserMedia({ video:true })
+.then(stream => document.getElementById("video").srcObject = stream);
+
+function capture(){
+    let canvas = document.getElementById("canvas");
+    let video = document.getElementById("video");
+    let ctx = canvas.getContext("2d");
+    ctx.drawImage(video,0,0,320,240);
+    document.getElementById("image_data").value = canvas.toDataURL("image/jpeg");
+    alert("Photo Captured Successfully");
+}
+</script>
+
+</body>
+</html>
+
