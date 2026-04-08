@@ -28,3 +28,8 @@ Password: 1234
 
 # Step 1.  venv\Scripts\activate    
 # Step 2.   python app.py
+
+
+
+ # ADMIN_USER = "admin"
+$ ADMIN_PASS = "1234"
